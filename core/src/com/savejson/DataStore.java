@@ -16,8 +16,9 @@ import java.util.ArrayList;
  */
 public class DataStore  {
     
-    public String sName;
-    public int nAge;
+    public String sWord;
+    public String sNum;
+    public String sSentence;
     public ArrayList numbers;
     
     
