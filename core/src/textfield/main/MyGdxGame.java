@@ -2,6 +2,7 @@ package textfield.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -63,7 +64,6 @@ public class MyGdxGame extends ApplicationAdapter {
         text.setTextFieldListener(new TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char key) {
-                Gdx.app.log("", "" + key);
             }
         });
 //        table.add(text).expandX().padBottom(20);
@@ -81,6 +81,11 @@ public class MyGdxGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
-
+        if (Gdx.input.isKeyJustPressed(Keys.ENTER)){
+        String sText = text.getText();
+        System.out.println(sText);
+        text.remove();
+        }
+        
     }
 }
