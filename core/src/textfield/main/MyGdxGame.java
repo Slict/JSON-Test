@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -28,6 +30,7 @@ public class MyGdxGame extends ApplicationAdapter {
     BitmapFont font;
     Stage stage;
     Table table;
+    Texture texCur;
     TextureAtlas atlas;
     TextFieldListener tfl;
     OrthographicCamera camera;
@@ -41,15 +44,18 @@ public class MyGdxGame extends ApplicationAdapter {
         textstyle = new TextFieldStyle();
         table = new Table();
         atlas = new TextureAtlas(Gdx.files.internal("Buttons.pack"));
-
+        texCur = new Texture(Gdx.files.internal("cursor.png"));
+        
         textboxskin.addRegions(atlas);
 
 
         textstyle.background = textboxskin.getDrawable("ButtonUp");
         textstyle.font = font;
+        textstyle.cursor = new TextureRegionDrawable(new TextureRegion(texCur));
+        
         textstyle.fontColor = Color.BLACK;
 
-        text = new TextField("memes", textstyle);
+        text = new TextField("",textstyle);
         text.setWidth(200);
         text.setHeight(60);
         text.setX(200);
@@ -57,7 +63,7 @@ public class MyGdxGame extends ApplicationAdapter {
         text.setTextFieldListener(new TextFieldListener() {
             @Override
             public void keyTyped(TextField textField, char key) {
-                Gdx.app.log("Skillaria", "" + key);
+                Gdx.app.log("", "" + key);
             }
         });
 //        table.add(text).expandX().padBottom(20);
@@ -66,7 +72,7 @@ public class MyGdxGame extends ApplicationAdapter {
 //        table.setY(200);
 
         stage.addActor(text);
-
+        Gdx.input.setInputProcessor(stage);
 
     }
 
