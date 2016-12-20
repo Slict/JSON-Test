@@ -55,6 +55,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
         stage = new Stage();
         font = new BitmapFont();
+        font.setColor(Color.BLACK);
         textboxskin = new Skin();
         textstyle = new TextFieldStyle();
         table = new Table();
@@ -68,7 +69,7 @@ public class MyGdxGame extends ApplicationAdapter {
         textstyle.font = font;
         textstyle.cursor = new TextureRegionDrawable(new TextureRegion(texCur));
 
-        textstyle.fontColor = Color.WHITE;
+        textstyle.fontColor = Color.BLACK;
 
         text = new TextField("", textstyle);
         text.setWidth(200);
@@ -88,7 +89,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         font.draw(batch, "Press T to open the text field and en"
