@@ -2,6 +2,7 @@ package textfield.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
@@ -31,8 +32,8 @@ public class MyGdxGame extends ApplicationAdapter {
     Json json;
     JsonReader reader;
     FileHandle file;
-    TextFieldStyle textstyle;
-    Skin textboxskin;
+    TextFieldStyle tstyle;
+    Skin tbskin;
     TextField text;
     BitmapFont font;
     Stage stage;
@@ -50,28 +51,28 @@ public class MyGdxGame extends ApplicationAdapter {
         json = new Json();
         file = new FileHandle("myjson.json");
         reader = new JsonReader();
-        
+
         batch = new SpriteBatch();
 
         stage = new Stage();
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        textboxskin = new Skin();
-        textstyle = new TextFieldStyle();
+        tbskin = new Skin();
+        tstyle = new TextFieldStyle();
         table = new Table();
         atlas = new TextureAtlas(Gdx.files.internal("Buttons.pack"));
         texCur = new Texture(Gdx.files.internal("cursor.png"));
 
-        textboxskin.addRegions(atlas);
+        tbskin.addRegions(atlas);
 
 
-        textstyle.background = textboxskin.getDrawable("ButtonUp");
-        textstyle.font = font;
-        textstyle.cursor = new TextureRegionDrawable(new TextureRegion(texCur));
+        tstyle.background = tbskin.getDrawable("ButtonUp");
+        tstyle.font = font;
+        tstyle.cursor = new TextureRegionDrawable(new TextureRegion(texCur));
 
-        textstyle.fontColor = Color.BLACK;
+        tstyle.fontColor = Color.BLACK;
 
-        text = new TextField("", textstyle);
+        text = new TextField(" ", tstyle);
         text.setWidth(200);
         text.setHeight(60);
         text.setX(200);
@@ -84,7 +85,6 @@ public class MyGdxGame extends ApplicationAdapter {
         text.setAlignment(Align.center);
         stage.addActor(text);
         Gdx.input.setInputProcessor(stage);
-
     }
 
     @Override
@@ -92,21 +92,24 @@ public class MyGdxGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        font.draw(batch, "Press T to open the text field and en"
+        font.draw(batch, "Press the left mouse button to open the text field and en"
                 + "ter to close and save the text", 10, 400);
         batch.end();
         if (bDraw) {
             stage.draw();
         }
-        if (Gdx.input.isKeyJustPressed(Keys.T)){
+        if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+            text.setText("");
             bDraw = true;
         }
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
-            bDraw= false;
+            bDraw = false;
             data.sInput = text.getText();
             json.toJson(data, file);
             text.setMessageText("");
             System.out.println(reader.parse(file).get("sInput").asString());
+                        text.setText("");
+
 
         }
 
