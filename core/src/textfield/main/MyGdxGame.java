@@ -92,13 +92,13 @@ public class MyGdxGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        font.draw(batch, "Press the left mouse button to open the text field and en"
-                + "ter to close and save the text", 10, 400);
+        font.draw(batch, "Press the left mouse button to open the text field "
+                + "and enter to close and save the text", 60, 400);
         batch.end();
         if (bDraw) {
             stage.draw();
         }
-        if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+        if (Gdx.input.isButtonPressed(Buttons.LEFT) && bDraw == false) {
             text.setText("");
             bDraw = true;
         }
@@ -109,8 +109,6 @@ public class MyGdxGame extends ApplicationAdapter {
             text.setMessageText("");
             System.out.println(reader.parse(file).get("sInput").asString());
                         text.setText("");
-
-
         }
 
     }
